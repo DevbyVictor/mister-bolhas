@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catálogo - Mister Bolhas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e9f1f7, #f8fbff);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #003566, #0077b6);
+      color: white;
+      padding: 2.5rem 0 2rem;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-btn {
+      border: none;
+      background: #fff;
+      color: #007bff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: linear-gradient(90deg, #007bff, #00b4d8);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+
+    .search-box input {
+      border-radius: 50px;
+      padding-left: 2.8rem;
+      height: 3.2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: none;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+      font-size: 1.2rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .card img {
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #003566;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .badge-promo {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(90deg, #ffb703, #fb8500);
+      color: #fff;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .btn-whatsapp {
+      background: linear-gradient(90deg, #25d366, #1ebe5b);
+      color: white;
+      border: none;
+      font-weight: 500;
+      border-radius: 50px;
+      padding: 0.7rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-whatsapp:hover {
+      background: linear-gradient(90deg, #1ebe5b, #169d48);
+      transform: scale(1.03);
+    }
+
+    footer {
+      background: #003566;
+      color: #e0e0e0;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      margin-top: 3rem;
+      letter-spacing: 0.5px;
+    }
+
+    footer span {
+      color: #00b4d8;
+    }
+
+    /* Botão flutuante do WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #20bd5a;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mister Bolhas</h1>
+    <p>Escolha o melhor para o brilho do seu carro ✨</p>
+  </header>
+
+  <div class="container py-5">
+
+    <!-- Filtros -->
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="lavagem">Lavagem</button>
+      <button class="filter-btn" data-filter="acabamento">Acabamento</button>
+      <button class="filter-btn" data-filter="interior">Interior</button>
+      <button class="filter-btn" data-filter="acessorios">Acessórios</button>
+    </div>
+
+    <!-- Busca -->
+    <div class="search-box mb-5">
+      <i class="bi bi-search"></i>
+      <input type="text" id="search" class="form-control form-control-lg" placeholder="Buscar produto...">
+    </div>
+
+    <!-- Produtos -->
+    <div id="produtos" class="row g-4"></div>
+  </div>
+
+  <!-- Botão flutuante WhatsApp -->
+  <a href="https://wa.me/5511975219232?text=Olá!%20Gostaria%20de%20ver%20os%20produtos%20do%20Mister%20Bolhas!" target="_blank" class="whatsapp-float">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <footer>
+    © 2025 <span>Mister Bolhas</span> — Desenvolvido por Victor A. Silva
+  </footer>
+
+  <script>
+    const produtos = [
+      { nome: "Shampoo Automotivo Espumante", categoria: "lavagem", descricao: "Alta concentração, pH neutro e brilho intenso.", preco: "R$ 39,90", imagem: "https://cdn.sistemawbuy.com.br/arquivos/9737fc24701511058a5716181b37f4ee/produtos/6600beb395ef8/20240324210051-6600beb3c473f.jpg?w=600" },
+      { nome: "Cera de Carnaúba Líquida", categoria: "acabamento", descricao: "Protege a pintura e realça o brilho com efeito espelhado.", preco: "R$ 49,90", imagem: "https://img.freepik.com/fotos-gratis/composicao-de-acessorios-para-carros-diferentes_23-2149030385.jpg?w=600", promocao: true },
+      { nome: "Desengraxante Concentrado", categoria: "lavagem", descricao: "Remove óleos e sujeiras pesadas de motores e rodas.", preco: "R$ 59,90", imagem: "https://static.vhsys.com/vh-drive/produtos/24365819/SANICAR_PLUS_SHAMPOO_AUTOMOTIVO_-_5L_59a9323.jpg?w=600" },
+      { nome: "Limpa Pneu Gel", categoria: "acabamento", descricao: "Brilho molhado duradouro e proteção contra rachaduras.", preco: "R$ 29,90", imagem: "https://grupocb.com/wp-content/gallery/rotulos-para-produtos-automotivos/rotulo-cera-automotiva.jpg?w=600", promocao: true },
+      { nome: "Perfumador Automotivo Premium", categoria: "interior", descricao: "Aromas intensos e duradouros para o interior do veículo.", preco: "R$ 19,90", imagem: "https://versatiletiquetas.com.br/wp-content/uploads/2024/08/2-AUTOMOTIVO.png?w=600" },
+      { nome: "Toalha de Microfibra 400g", categoria: "acessorios", descricao: "Alta absorção e acabamento perfeito na secagem.", preco: "R$ 14,90", imagem: "https://cdn.awsli.com.br/2500x2500/400/400954/produto/326427337/9b323b3706c12487a552177bdd21724a-mfcqww066n.jpg?w=600" },
+    ];
+
+    const container = document.getElementById('produtos');
+    const search = document.getElementById('search');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    function render(lista) {
+      container.innerHTML = lista.map(p => `
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="card h-100 position-relative">
+            ${p.promocao ? '<div class="badge-promo">Promoção</div>' : ''}
+            <img src="${p.imagem}" alt="${p.nome}" class="card-img-top">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">${p.nome}</h5>
+              <p class="card-text flex-grow-1">${p.descricao}</p>
+              <p class="fw-semibold text-primary mb-3">${p.preco}</p>
+              <a href="https://wa.me/5511975219232?text=Olá!%20Tenho%20interesse%20no%20produto%20${encodeURIComponent(p.nome)}."
+                 target="_blank" class="btn btn-whatsapp w-100">
+                 <i class="bi bi-whatsapp"></i> Pedir no WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    render(produtos);
+
+    // Filtro de categoria
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filtro = btn.dataset.filter;
+        const filtrados = filtro === "all" ? produtos : produtos.filter(p => p.categoria === filtro);
+        render(filtrados);
+      });
+    });
+
+    // Busca
+    search.addEventListener('input', e => {
+      const filtro = e.target.value.toLowerCase();
+      const filtrados = produtos.filter(p =>
+        p.nome.toLowerCase().includes(filtro) ||
+        p.descricao.toLowerCase().includes(filtro)
+      );
+      render(filtrados);
+    });
+  </script>
+
+</body>
+</html>
